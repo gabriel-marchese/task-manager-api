@@ -12,4 +12,16 @@ const register = async (req, res) => {
   }
 };
 
-module.exports = { register };
+const login = async (req, res) => {
+  try {
+    const { email, password } = req.body;
+    
+    const user = await userService.login({ email, password });
+
+    return res.status(201).json({ message: 'Login efetuado com Sucesso', ...user });
+  } catch (error) {
+    return res.status(400).json({ error: error.message });
+  }
+};
+
+module.exports = { register, login };
